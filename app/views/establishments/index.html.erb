@@ -1,0 +1,38 @@
+<div class="page-header">
+<h1>Establishments</h1>
+<ul class="actions">
+	<li>New Establishment</li>
+</ul>
+</div>
+
+<div class="container">
+<div class="table-responsive">
+<table id="establishments" class="table table-bordered">
+	<thead>
+		<td>Name</td>
+		<td>Location</td>
+		<td>Manager</td>
+		<td>Status</td>
+	</thead>
+	<% @establishments.each do |id, establishment| %>
+		<% status = case establishment["Status"]
+					  when "COMPLIES" 			 then "success"
+		              when "NEEDS VISIT" 		 then "warning"
+		              when "1ST NEGATIVE SURVEY" then "danger"
+		              when "2ND NEGATIVE SURVEY" then "danger"
+		              when "3RD NEGATIVE SURVEY" then "danger"
+		              when "4TH NEGATIVE SURVEY" then "danger"
+		              else 							  ""
+					end%>
+		<tr class=<%= status %>>
+			<td><%= establishment["Name"] %></td>
+			<td><%= establishment["Location"]["Address"] %></br>
+				<%= establishment["Location"]["City"] %>, <%= establishment["Location"]["State"] %> <%= establishment["Location"]["Zip"] %></td>
+			<td><%= establishment["MID"] %></td>
+			<td><%= establishment["Status"] %></td>
+			<td><%= link_to "View", establishment_path(id), class: "btn btn-primary" %></td>
+		</tr>
+	<% end %>
+</table>
+</div>
+</div>
