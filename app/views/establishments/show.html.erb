@@ -5,12 +5,13 @@
 	<ul class="actions">
 		<li>Edit Establishment</li>
 		<li>Delete Establishment</li>
+		<li><%= link_to "Back", establishments_path, class: "btn btn-primary" %></li>
 	</ul>
 </div>
 
 <div class="container">
 <p><%= establishment["Location"]["Address"] %></p>
-<p><%= establishment["Location"]["City"] %>, <%= establishment["Location"]["State"] %> <%= establishment["Location"]["Address"] %></p>
+<p><%= establishment["Location"]["City"] %>, <%= establishment["Location"]["State"] %> <%= establishment["Location"]["Zip"] %></p>
 
 <h2>Manager Info</h2>
 <% @manager.each do |id, manager| %>

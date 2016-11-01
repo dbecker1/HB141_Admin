@@ -1,0 +1,44 @@
+<div class="page-header">
+	<h1>New Establishment</h1>
+	<ul class="actions">
+		<li><%= link_to "Back", establishments_path, class: "btn btn-primary" %></li>
+	</ul>
+</div>
+
+<%= form_tag establishments_path do %>
+<div class="container">
+	<p>
+		<%= label_tag "Name" %>
+		<%= text_field_tag "Name" %>
+	</p>
+	<p>
+		<%= label_tag "Address" %>
+		<%= text_field_tag "Address" %>
+	</p>
+	<p>
+		<%= label_tag "City" %>
+		<%= text_field_tag "City" %>
+		<%= label_tag "State" %>
+		<%= text_field_tag "State" %>
+		<%= label_tag "Zip" %>
+		<%= text_field_tag "Zip" %>
+	</p>
+	<p>
+		<%= label_tag "Manager Name" %>
+		<%= text_field_tag "Manager Name" %>
+	</p>
+	<p>
+		<%= label_tag "Manager Phone" %>
+		<%= text_field_tag "Manager Phone" %>
+	</p>
+	<p>
+		<%= label_tag "Manager Email" %>
+		<%= text_field_tag "Manager Email" %>
+	</p>
+	<p>
+		<%= label_tag "Status" %>
+		<%= text_field_tag "Status" %>
+	</p>
+	<%= submit_tag "Create Establishment", class: "btn btn-success" %>
+</div>
+<% end %>

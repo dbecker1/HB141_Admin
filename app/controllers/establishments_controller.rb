@@ -25,4 +25,37 @@ class EstablishmentsController < ApplicationController
 
 		@reports = reports
 	end
+
+	def new
+	end
+
+	def create
+		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
+		firebase = Firebase::Client.new(base_uri)
+
+		id = firebase.get('/establishment/Incrementor').body
+		m_id = firebase.get('/manager/Incrementor').body
+
+		add_manager = firebase.set('/manager/' + m_id.to_s, {
+				"Name" => params["Manager Name"],
+				"Phone" => params["Manager Phone"],
+				"Email" => params["Manager Email"]
+			})
+		firebase.update('', {'manager/Incrementor' => m_id + 1})
+
+		add_establishment = firebase.set('/establishment/' + id.to_s, {
+				"Name" => params["Name"],
+				"Location" => {
+						"Address" => params["Address"],
+						"City" => params["City"],
+						"State" => params["State"],
+						"Zip" => params["Zip"]
+					},
+				"MID" => m_id,
+				"Status" => params["Status"]
+			})
+		firebase.update('', {'establishment/Incrementor' => id + 1})
+
+		redirect_to establishments_path
+	end
 end
