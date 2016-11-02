@@ -1,8 +1,8 @@
 <div class="page-header">
-	<h1>
+	<h2>
 		Report #<%= params[:id] %>
-		<small class=<%= "bg-" + (@report["Pass"] ? "success" : "danger") %>><%= @report["Pass"] ? "Positive" : "Negative" %> Report</small>
-	</h1>
+		<span style="font-size: 14px;" class=<%= ('"label label-' + (@report["Pass"] ? "success" : "danger") + '"').html_safe %>><%= @report["Pass"] ? "Positive" : "Negative" %> Report</span>
+	</h2>
 
 	<ul class="actions">
 		<li><%= link_to "Back", reports_path, class: "btn btn-primary" %></li>
@@ -12,9 +12,9 @@
 </div>
 
 <div class="container">
-	<h2>Reported On <%= link_to @establishment["Name"], establishment_path(@report["EID"]) %></h2>
+	<h3>Reported On <%= link_to @establishment["Name"], establishment_path(@report["EID"]) %></h3>
 	<div class="well well-lg">
-		<h3><%= @report["Comment"] %></h3>
+		<h4><%= @report["Comment"] %></h4>
 	</div>
 	<p>Submitted On <%= @report["Datetime"] %></p>
 	<p>Submitted By <%= @report ["VID"] %></p>
