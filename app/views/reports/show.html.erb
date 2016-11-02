@@ -1,0 +1,21 @@
+<div class="page-header">
+	<h1>
+		Report #<%= params[:id] %>
+		<small class=<%= "bg-" + (@report["Pass"] ? "success" : "danger") %>><%= @report["Pass"] ? "Positive" : "Negative" %> Report</small>
+	</h1>
+
+	<ul class="actions">
+		<li><%= link_to "Back", reports_path, class: "btn btn-primary" %></li>
+		<li><%= link_to "Edit", edit_report_path(params[:id]), class: "btn btn-warning" %></li>
+		<li>Delete Report</li>
+	</ul>
+</div>
+
+<div class="container">
+	<h2>Reported On <%= link_to @establishment["Name"], establishment_path(@report["EID"]) %></h2>
+	<div class="well well-lg">
+		<h3><%= @report["Comment"] %></h3>
+	</div>
+	<p>Submitted On <%= @report["Datetime"] %></p>
+	<p>Submitted By <%= @report ["VID"] %></p>
+</div>

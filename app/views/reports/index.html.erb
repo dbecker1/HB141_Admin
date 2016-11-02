@@ -1,0 +1,26 @@
+<div class="page-header">
+<h1>Reports</h1>
+<ul class="actions">
+	<li><%= link_to "New Report", new_report_path, class: "btn btn-success" %></li>
+</ul>
+</div>
+
+<div class="container">
+<div class="table-responsive">
+<table id="establishments" class="table table-bordered">
+	<thead>
+		<td>ID</td>
+		<td>Submitted On</td>
+		<td>Comment</td>
+	</thead>
+	<% @reports.each do |id, report| %>
+		<tr class=<%= report["Pass"] ? "success" : "danger" %>>
+			<td><%= id %></td>
+			<td><%= report["Datetime"] %></td>
+			<td><%= report["Comment"] %></td>
+			<td><%= link_to "View", report_path(id), class: "btn btn-primary" %></td>
+		</tr>
+	<% end %>
+</table>
+</div>
+</div>
