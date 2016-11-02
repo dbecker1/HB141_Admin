@@ -1,27 +1,25 @@
-<% @establishment.each do |id, establishment| %>
 <div class="page-header">
-	<h1><%= establishment["Name"] %></h1>
+	<h1><%= @establishment["Name"] %></h1>
 
 	<ul class="actions">
-		<li>Edit Establishment</li>
-		<li>Delete Establishment</li>
 		<li><%= link_to "Back", establishments_path, class: "btn btn-primary" %></li>
+		<li><%= link_to "Edit", edit_establishment_path(params[:id]), class: "btn btn-warning" %></li>
+		<li>Delete Establishment</li>
 	</ul>
 </div>
 
 <div class="container">
-<p><%= establishment["Location"]["Address"] %></p>
-<p><%= establishment["Location"]["City"] %>, <%= establishment["Location"]["State"] %> <%= establishment["Location"]["Zip"] %></p>
+<p><%= @establishment["Location"]["Address"] %></p>
+<p><%= @establishment["Location"]["City"] %>, <%= @establishment["Location"]["State"] %> <%= @establishment["Location"]["Zip"] %></p>
 
 <h2>Manager Info</h2>
-<% @manager.each do |id, manager| %>
-	<p><%= manager["Name"] %></p>
-	<p><a href=<%= "tel:" + manager["Phone"] %>><span class='glyphicon glyphicon-earphone'></span></a> : <%= manager["Phone"] %></p>
-	<p><a href=<%= "mailto:" + manager["Email"] %>><span class='glyphicon glyphicon-envelope'></span></a> : <%= manager["Email"] %></p>
-<% end %>
+	<p><%= @manager["Name"] %></p>
+	<p><a href=<%= "tel:" + @manager["Phone"] %>><span class='glyphicon glyphicon-earphone'></span></a> : <%= @manager["Phone"] %></p>
+	<p><a href=<%= "mailto:" + @manager["Email"] %>><span class='glyphicon glyphicon-envelope'></span></a> : <%= @manager["Email"] %></p>
+
 
 <div class="table-responsive">
-	<h2>Reports About <%= establishment["Name"] %></h2>
+	<h2>Reports About <%= @establishment["Name"] %></h2>
 	<table class="table table-bordered">
 		<thead>
 			<td>Submitted On</td>
@@ -39,4 +37,3 @@
 	</table>
 </div>
 </div>
-<% end %>

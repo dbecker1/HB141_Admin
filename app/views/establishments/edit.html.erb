@@ -1,0 +1,44 @@
+<div class="page-header">
+	<h1>Edit Establishment</h1>
+	<ul class="actions">
+		<li><%= link_to "Back", establishment_path(params[:id]), class: "btn btn-primary" %></li>
+	</ul>
+</div>
+
+<%= form_tag establishment_path(params[:id]), method: :put do %>
+<div class="container">
+	<p>
+		<%= label_tag "Name" %>
+		<%= text_field_tag "Name", @establishment["Name"] %>
+	</p>
+	<p>
+		<%= label_tag "Address" %>
+		<%= text_field_tag "Address", @establishment["Location"]["Address"] %>
+	</p>
+	<p>
+		<%= label_tag "City" %>
+		<%= text_field_tag "City", @establishment["Location"]["City"] %>
+		<%= label_tag "State" %>
+		<%= text_field_tag "State", @establishment["Location"]["State"] %>
+		<%= label_tag "Zip" %>
+		<%= text_field_tag "Zip", @establishment["Location"]["Zip"] %>
+	</p>
+		<p>
+			<%= label_tag "Manager Name" %>
+			<%= text_field_tag "Manager Name", @manager["Name"] %>
+		</p>
+		<p>
+			<%= label_tag "Manager Phone" %>
+			<%= text_field_tag "Manager Phone", @manager["Phone"] %>
+		</p>
+		<p>
+			<%= label_tag "Manager Email" %>
+			<%= text_field_tag "Manager Email", @manager["Email"] %>
+		</p>
+	<p>
+		<%= label_tag "Status" %>
+		<%= text_field_tag "Status", @establishment["Status"] %>
+	</p>
+	<%= submit_tag "Edit Establishment", class: "btn btn-primary" %>
+</div>
+<% end %>
