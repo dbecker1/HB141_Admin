@@ -1,0 +1,24 @@
+<div class="page-header">
+	<h2>Edit Report</h2>
+	<ul class="actions">
+		<li><%= link_to "Back", report_path(params[:id]), class: "btn btn-primary" %></li>
+	</ul>
+</div>
+
+<%= form_tag report_path(params[:id]), method: :put do %>
+<div class="container">
+	<p>
+		<%= label_tag "Datetime" %>
+		<%= text_field_tag "Datetime", @report["Datetime"] %>
+	</p>
+	<p>
+		<%= label_tag "Comment" %>
+		<%= text_field_tag "Comment", @report["Comment"] %>
+	</p>
+	<p>
+		<%= label_tag "Pass" %>
+		<%= text_field_tag "Pass", @report["Pass"] %>
+	</p>
+	<%= submit_tag "Edit Report", class: "btn btn-primary" %>
+</div>
+<% end %>
