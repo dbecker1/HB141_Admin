@@ -1,6 +1,8 @@
 require 'date'
 
 class EstablishmentsController < ApplicationController
+	before_action :authenticate_admin!
+
 	def index
 		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
 		firebase = Firebase::Client.new(base_uri)
