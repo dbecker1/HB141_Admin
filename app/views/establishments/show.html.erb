@@ -1,16 +1,16 @@
 <div class="page-header">
 	<h2>
 		<%= @establishment["Name"] %>
-		<% status = case @establishment["Status"]
+		<% status = case @status
 					  when "COMPLIES" 			 then "success"
 		              when "NEEDS VISIT" 		 then "warning"
 		              when "1ST NEGATIVE SURVEY" then "danger"
 		              when "2ND NEGATIVE SURVEY" then "danger"
 		              when "3RD NEGATIVE SURVEY" then "danger"
 		              when "4TH NEGATIVE SURVEY" then "danger"
-		              else 							  ""
+		              else 							  "primary"
 					end %>
-		<span style="font-size: 14px;" class=<%= ('"label label-' + status + '"').html_safe %>><%= @establishment["Status"] %></span>
+		<span style="font-size: 14px;" class=<%= ('"label label-' + status + '"').html_safe %>><%= @status %></span>
 	</h2>
 
 	<ul class="actions">

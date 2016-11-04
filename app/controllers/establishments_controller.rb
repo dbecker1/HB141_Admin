@@ -1,10 +1,26 @@
+require 'date'
+
 class EstablishmentsController < ApplicationController
 	def index
 		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
 		firebase = Firebase::Client.new(base_uri)
 
 		establishments = firebase.get('/establishment/').body
-		@establishments = establishments.except("Incrementor")
+
+		establishments.except!("Incrementor")
+
+		establishments_with_status = {}
+
+		establishments.each do |id, establishment|
+			reports = firebase.get('/report/').body
+			reports.keep_if do |r_id, report|
+				r_id != "Incrementor" and report["EID"].to_s == id
+			end
+			establishment["Status"] = status(reports)
+			establishments_with_status[id] = establishment
+		end
+
+		@establishments = establishments_with_status
 	end
 
 	def show
@@ -20,6 +36,8 @@ class EstablishmentsController < ApplicationController
 		reports.keep_if do |id, report|
 			id != "Incrementor" and report["EID"].to_s == params[:id]
 		end
+
+		@status = status(reports)
 
 		@reports = reports
 	end
@@ -49,8 +67,7 @@ class EstablishmentsController < ApplicationController
 						"State" => params["State"],
 						"Zip" => params["Zip"]
 					},
-				"MID" => new_m_id,
-				"Status" => params["Status"]
+				"MID" => new_m_id
 			})
 		firebase.update('', {'/establishment/Incrementor' => new_id + 1})
 
@@ -85,10 +102,32 @@ class EstablishmentsController < ApplicationController
 					"City" => params["City"],
 					"State" => params["State"],
 					"Zip" => params["Zip"]
-				},
-				"Status" => params["Status"]
+				}
 			})
 
 		redirect_to establishment_path(params[:id])
+	end
+
+	private
+
+	def status(reports)
+		neg_reports = 0
+		latest_report = DateTime.new(0)
+
+		reports.each do |id, report|
+			return "COMPLIES" if report["Pass"]
+			neg_reports += 1 if neg_reports < 4 and !report["Pass"]
+			datetime = DateTime.strptime(report["Datetime"], '%H:%M %m/%d/%Y')
+			if datetime > latest_report
+				latest_report = datetime
+			end
+		end
+
+		if latest_report < DateTime.now() - 30
+			return "NEEDS VISIT"
+		end
+
+		return neg_reports.ordinalize.upcase + " NEGATIVE SURVEY"
+
 	end
 end

@@ -40,7 +40,7 @@ class ReportsController < ApplicationController
 		update_report = firebase.update('/report/' + params[:id], {
 				"Datetime" => params["Datetime"],
 				"Comment" => params["Comment"],
-				"Pass" => params["Pass"]
+				"Pass" => params["Pass"] == 'true'
 			})
 
 		redirect_to report_path(params[:id])
