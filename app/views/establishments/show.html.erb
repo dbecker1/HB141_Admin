@@ -21,14 +21,9 @@
 </div>
 
 <div class="container">
-<p><%= @establishment["Location"]["Address"] %></p>
-<p><%= @establishment["Location"]["City"] %>, <%= @establishment["Location"]["State"] %> <%= @establishment["Location"]["Zip"] %></p>
-
-<h3>Manager Info</h3>
-	<p><%= @manager["Name"] %></p>
-	<p><a href=<%= "tel:" + @manager["Phone"] %>><span class='glyphicon glyphicon-earphone'></span></a> : <%= @manager["Phone"] %></p>
-	<p><a href=<%= "mailto:" + @manager["Email"] %>><span class='glyphicon glyphicon-envelope'></span></a> : <%= @manager["Email"] %></p>
-
+<p><%= @establishment["Address"] %></p>
+<p>Phone: <a href=<%= 'tel:' + @establishment["Phone Number"].gsub(/\s+/, "") %>><%= @establishment["Phone Number"] %></a></p>
+<p>Website: <a href=<%= @establishment["Website"] %>><%= @establishment["Website"] %></a></p>
 
 <div class="table-responsive">
 	<h3>Reports About <%= @establishment["Name"] %></h3>
@@ -37,6 +32,7 @@
 			<td>ID</td>
 			<td>Submitted On</td>
 			<td>Comment</td>
+			<td></td>
 		</thead>
 		<% @reports.each do |id, report| %>
 			<tr class=<%= report["Pass"] ? "success" : "danger" %>>

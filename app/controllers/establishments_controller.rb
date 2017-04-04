@@ -119,13 +119,20 @@ class EstablishmentsController < ApplicationController
 		reports.each do |id, report|
 			return "COMPLIES" if report["Pass"]
 			neg_reports += 1 if neg_reports < 4 and !report["Pass"]
-			datetime = DateTime.strptime(report["Datetime"], '%H:%M %m/%d/%Y')
+			begin
+				datetime = DateTime.strptime(report["Datetime"], '%m/%d/%Y %H:%M')
+			rescue
+				puts report["Datetime"] + 'x'
+				datetime = DateTime.new(0)
+			end
 			if datetime > latest_report
 				latest_report = datetime
 			end
 		end
 
-		if latest_report < DateTime.now() - 30
+		puts latest_report
+		puts DateTime.now - 30
+		if latest_report < DateTime.now - 30
 			return "NEEDS VISIT"
 		end
 

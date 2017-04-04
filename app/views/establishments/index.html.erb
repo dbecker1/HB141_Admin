@@ -12,6 +12,7 @@
 		<td>Name</td>
 		<td>Location</td>
 		<td>Status</td>
+		<td></td>
 	</thead>
 	<% @establishments.each do |id, establishment| %>
 		<% status = case establishment["Status"]
@@ -25,8 +26,7 @@
 					end %>
 		<tr class=<%= status %>>
 			<td><%= establishment["Name"] %></td>
-			<td><%= establishment["Location"]["Address"] %></br>
-				<%= establishment["Location"]["City"] %>, <%= establishment["Location"]["State"] %> <%= establishment["Location"]["Zip"] %></td>
+			<td><%= establishment["Address"] %></td>
 			<td><%= establishment["Status"] %></td>
 			<td><%= link_to "View", establishment_path(id), class: "btn btn-primary" %></td>
 		</tr>
