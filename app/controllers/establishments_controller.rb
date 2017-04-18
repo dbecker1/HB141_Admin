@@ -9,14 +9,12 @@ class EstablishmentsController < ApplicationController
 
 		establishments = firebase.get('/establishment/').body
 
-		establishments.except!("Incrementor")
-
 		establishments_with_status = {}
 
 		establishments.each do |id, establishment|
 			reports = firebase.get('/report/').body
 			reports.keep_if do |r_id, report|
-				r_id != "Incrementor" and report["EID"].to_s == id
+				report["EID"].to_s == id
 			end
 			establishment["Status"] = status(reports)
 			establishments_with_status[id] = establishment

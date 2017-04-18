@@ -12,9 +12,10 @@
 		<td>ID</td>
 		<td>Submitted On</td>
 		<td>Comment</td>
+		<td></td>
 	</thead>
 	<% @reports.each do |id, report| %>
-		<tr class=<%= report["Pass"] ? "success" : "danger" %>>
+		<tr class=<%= pass(report) ? "success" : "danger" %>>
 			<td><%= id %></td>
 			<td><%= report["Datetime"] %></td>
 			<td><%= report["Comment"] %></td>

@@ -1,7 +1,7 @@
 <div class="page-header">
 	<h2>
 		Report #<%= params[:id] %>
-		<span style="font-size: 14px;" class=<%= ('"label label-' + (@report["Pass"] ? "success" : "danger") + '"').html_safe %>><%= @report["Pass"] ? "Positive" : "Negative" %> Report</span>
+		<span style="font-size: 14px;" class=<%= ('"label label-' + (pass(@report) ? "success" : "danger") + '"').html_safe %>><%= pass(@report) ? "Positive" : "Negative" %> Report</span>
 	</h2>
 
 	<ul class="actions">

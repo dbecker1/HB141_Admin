@@ -5,8 +5,7 @@ class ReportsController < ApplicationController
 		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
 		firebase = Firebase::Client.new(base_uri)
 
-		reports = firebase.get('/report/').body
-		@reports = reports.except("Incrementor")
+		@reports = firebase.get('/report/').body
 	end
 
 	def show
@@ -41,10 +40,18 @@ class ReportsController < ApplicationController
 
 		update_report = firebase.update('/report/' + params[:id], {
 				"Datetime" => params["Datetime"],
-				"Comment" => params["Comment"],
-				"Pass" => params["Pass"] == 'true'
+				"Comment" => params["Comment"]
 			})
 
 		redirect_to report_path(params[:id])
 	end
+
+	private
+
+	def pass(report)
+
+		report["Public View"] and report["Restroom View"] and not report["No View"]
+	end
+
+	helper_method :pass
 end
