@@ -22,8 +22,21 @@
 
 <div class="container">
 <p><%= @establishment["Address"] %></p>
-<p>Phone: <a href=<%= 'tel:' + @establishment["Phone Number"].gsub(/\s+/, "") %>><%= @establishment["Phone Number"] %></a></p>
-<p>Website: <a href=<%= @establishment["Website"] %>><%= @establishment["Website"] %></a></p>
+<p>Phone:
+	<% if @establishment["Phone Number"] == nil %> 
+		N/A
+	<% else %>
+		<a href=<%= 'tel:' + @establishment["Phone Number"].gsub(/\s+/, "") %>><%= @establishment["Phone Number"] %></a>
+	<% end %>
+</p>
+
+<p>Website:
+	<% if @establishment["Website"] == nil %>
+		N/A
+	<% else %> 
+		<a href=<%= @establishment["Website"] %>><%= @establishment["Website"] %></a>
+	<% end %>
+</p>
 
 <div class="table-responsive">
 	<h3>Reports About <%= @establishment["Name"] %></h3>
