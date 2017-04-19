@@ -6,7 +6,8 @@
 
 	<ul class="actions">
 		<li><%= link_to "Back", reports_path, class: "btn btn-primary" %></li>
-		<li><%= link_to "Edit", edit_report_path(params[:id]), class: "btn btn-warning" %></li>
+		<li><%= link_to "Edit Report", edit_report_path(params[:id]), class: "btn btn-warning" %></li>
+		<li><%= link_to "Delete Report", report_path(params[:id]), method: :delete, data: { confirm: "Are you sure you want to delete this report?" }, class: "btn btn-danger" %></li>
 	</ul>
 </div>
 

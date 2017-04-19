@@ -43,6 +43,15 @@ class ReportsController < ApplicationController
 		redirect_to report_path(params[:id])
 	end
 
+	def destroy
+		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
+		firebase = Firebase::Client.new(base_uri)
+
+		firebase.delete('/report/' + params[:id])
+
+		redirect_to reports_path		
+	end
+
 	private
 
 	def pass(report)
