@@ -49,7 +49,6 @@ class ReportsController < ApplicationController
 	private
 
 	def pass(report)
-
 		report["Public View"] and report["Restroom View"] and not report["No View"]
 	end
 

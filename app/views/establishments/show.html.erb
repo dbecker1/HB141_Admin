@@ -1,7 +1,7 @@
 <div class="page-header">
 	<h2>
 		<%= @establishment["Name"] %>
-		<% status = case @status
+		<% status = case status(@reports)
 					  when "COMPLIES" 			 then "success"
 		              when "NEEDS VISIT" 		 then "warning"
 		              when "1ST NEGATIVE SURVEY" then "danger"
@@ -10,13 +10,12 @@
 		              when "4TH NEGATIVE SURVEY" then "danger"
 		              else 							  "primary"
 					end %>
-		<span style="font-size: 14px;" class=<%= ('"label label-' + status + '"').html_safe %>><%= @status %></span>
+		<span style="font-size: 14px;" class=<%= ('"label label-' + status(@reports) + '"').html_safe %>><%= status(@reports) %></span>
 	</h2>
 
 	<ul class="actions">
 		<li><%= link_to "Back", establishments_path, class: "btn btn-primary" %></li>
 		<li><%= link_to "Edit", edit_establishment_path(params[:id]), class: "btn btn-warning" %></li>
-		<li>Delete Establishment</li>
 	</ul>
 </div>
 
@@ -35,7 +34,7 @@
 			<td></td>
 		</thead>
 		<% @reports.each do |id, report| %>
-			<tr class=<%= report["Pass"] ? "success" : "danger" %>>
+			<tr class=<%= pass(report) ? "success" : "danger" %>>
 				<td><%= id %></td>
 				<td><%= report["Datetime"] %></td>
 				<td><%= report["Comment"] %></td>
