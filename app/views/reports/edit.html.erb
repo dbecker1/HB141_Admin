@@ -16,8 +16,16 @@
 		<%= text_field_tag "Comment", @report["Comment"] %>
 	</p>
 	<p>
-		<%= label_tag "Pass" %>
-		<%= text_field_tag "Pass", @report["Pass"] %>
+		<%= label_tag "Public View" %>
+		<%= check_box_tag "Public View", true, @report["Public View"] %>
+	</p>
+	<p>
+		<%= label_tag "Restroom View" %>
+		<%= check_box_tag "Restroom View", true, @report["Restroom View"] %>
+	</p>
+	<p>
+		<%= label_tag "No View" %>
+		<%= check_box_tag "No View", true, @report["No View"] %>
 	</p>
 	<%= submit_tag "Edit Report", class: "btn btn-primary" %>
 </div>

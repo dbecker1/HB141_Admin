@@ -38,12 +38,6 @@ class EstablishmentsController < ApplicationController
 		@reports = reports
 	end
 
-	def new
-	end
-
-	def create
-	end
-
 	def edit
 		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
 		firebase = Firebase::Client.new(base_uri)

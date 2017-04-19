@@ -19,12 +19,6 @@ class ReportsController < ApplicationController
 		#@volunteer = firebase.get('/volunteer/' + @report["VID"].to_s).body
 	end
 
-	def new
-	end
-
-	def create
-	end
-
 	def edit
 		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
 		firebase = Firebase::Client.new(base_uri)
@@ -40,7 +34,10 @@ class ReportsController < ApplicationController
 
 		update_report = firebase.update('/report/' + params[:id], {
 				"Datetime" => params["Datetime"],
-				"Comment" => params["Comment"]
+				"Comment" => params["Comment"],
+				"Public View" => params["Public View"] ? true : false,
+				"Restroom View" => params["Restroom View"] ? true : false,
+				"No View" => params["No View"] ? true : false
 			})
 
 		redirect_to report_path(params[:id])
