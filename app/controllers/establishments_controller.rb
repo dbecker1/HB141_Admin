@@ -63,6 +63,22 @@ class EstablishmentsController < ApplicationController
 		redirect_to establishment_path(params[:id])
 	end
 
+	def destroy
+		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
+		firebase = Firebase::Client.new(base_uri)
+
+		reports = firebase.get('/report/').body
+		reports.each do |id, report|
+			if report["EID"].to_s == params[:id]
+				firebase.delete('/report/' + id)
+			end
+		end
+
+		firebase.delete('/establishment/' + params[:id])
+
+		redirect_to establishments_path
+	end
+
 	private
 
 	def status(reports)

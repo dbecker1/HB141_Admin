@@ -15,7 +15,8 @@
 
 	<ul class="actions">
 		<li><%= link_to "Back", establishments_path, class: "btn btn-primary" %></li>
-		<li><%= link_to "Edit", edit_establishment_path(params[:id]), class: "btn btn-warning" %></li>
+		<li><%= link_to "Edit Establishment", edit_establishment_path(params[:id]), class: "btn btn-warning" %></li>
+		<li><%= link_to "Delete Establishment", establishment_path(params[:id]), method: :delete, data: { confirm: "Are you sure you want to delete this establishment and all associated reports?" }, class: "btn btn-danger" %></li>
 	</ul>
 </div>
 
