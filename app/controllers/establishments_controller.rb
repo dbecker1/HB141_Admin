@@ -72,11 +72,11 @@ class EstablishmentsController < ApplicationController
 			if pass(report)
 				return "COMPLIES"
 			end
-			if neg_reports < 4 and pass(report)
+			if neg_reports < 4 and not pass(report)
 				neg_reports += 1
 			end
 			begin
-				datetime = DateTime.strptime(report["Datetime"], '%m/%d/%Y %H:%M %p')
+				datetime = DateTime.strptime(report["Datetime"], '%m/%d/%y %H:%M %p')
 			rescue
 				datetime = DateTime.new(0)
 			end
