@@ -1,0 +1,26 @@
+<div class="page-header">
+<h2>Users</h2>
+<ul class="actions">
+</ul>
+</div>
+
+<div class="container">
+<div class="table-responsive">
+<table id="establishments" class="table table-bordered">
+	<thead>
+		<td>ID</td>
+		<td>Name</td>
+		<td>Email</td>
+		<td></td>
+	</thead>
+	<% @users.each do |id, user| %>
+		<tr>
+			<td><%= id %></td>
+			<td><%= user["Name"] %></td>
+			<td><%= user["Email"] %></td>
+			<td><%= link_to "View", user_path(id), class: "btn btn-primary" %></td>
+		</tr>
+	<% end %>
+</table>
+</div>
+</div>

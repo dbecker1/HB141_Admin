@@ -1,18 +1,14 @@
 require 'date'
 
 class EstablishmentsController < ApplicationController
-	before_action :authenticate_admin!
 
 	def index
-		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
-		firebase = Firebase::Client.new(base_uri)
-
-		establishments = firebase.get('/establishment/').body
+		establishments = @firebase.get('/establishment/').body
 
 		establishments_with_status = {}
 
 		establishments.each do |id, establishment|
-			reports = firebase.get('/report/').body
+			reports = @firebase.get('/report/').body
 			reports.keep_if do |r_id, report|
 				report["EID"].to_s == id
 			end
@@ -24,13 +20,9 @@ class EstablishmentsController < ApplicationController
 	end
 
 	def show
-		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
-		firebase = Firebase::Client.new(base_uri)
+		@establishment = @firebase.get('/establishment/' + params[:id]).body
 
-		@establishment = firebase.get('/establishment/' + params[:id]).body
-
-		# TODO: REPLACE THIS BLOCK AFTER LEARNING ABOUT FIREBASE-RUBY QUERY OPTIONS
-		reports = firebase.get('/report/').body
+		reports = @firebase.get('/report/').body
 		reports.keep_if do |id, report|
 			report["EID"].to_s == params[:id]
 		end
@@ -39,19 +31,13 @@ class EstablishmentsController < ApplicationController
 	end
 
 	def edit
-		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
-		firebase = Firebase::Client.new(base_uri)
-
-		@establishment = firebase.get('/establishment/' + params[:id]).body
+		@establishment = @firebase.get('/establishment/' + params[:id]).body
 
 		@manager = firebase.get('/manager/' + @establishment["MID"].to_s).body
 	end
 
 	def update
-		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
-		firebase = Firebase::Client.new(base_uri)
-
-		establishment = firebase.get('/establishment/' + params[:id]).body
+		establishment = @firebase.get('/establishment/' + params[:id]).body
 
 		update_establishment = firebase.update('/establishment/' + params[:id], {
 				"Name" => params["Name"],
@@ -64,17 +50,14 @@ class EstablishmentsController < ApplicationController
 	end
 
 	def destroy
-		base_uri = 'https://hb141-2fc0d.firebaseio.com/'
-		firebase = Firebase::Client.new(base_uri)
-
-		reports = firebase.get('/report/').body
+		reports = @firebase.get('/report/').body
 		reports.each do |id, report|
 			if report["EID"].to_s == params[:id]
-				firebase.delete('/report/' + id)
+				@firebase.delete('/report/' + id)
 			end
 		end
 
-		firebase.delete('/establishment/' + params[:id])
+		@firebase.delete('/establishment/' + params[:id])
 
 		redirect_to establishments_path
 	end
